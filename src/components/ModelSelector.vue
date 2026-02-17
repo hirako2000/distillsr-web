@@ -5,7 +5,7 @@
                 class="w-full px-5 py-2 bg-white/5 border border-white/10 rounded-2xl text-white text-sm appearance-none cursor-pointer hover:bg-white/10 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/20 transition-all">
                 <option v-for="(info, value) in models" :key="value" :value="value" :data-precision="info.name"
                     :data-speed="info.speed" :data-badge="info.badge" class="bg-gray-900">
-                    {{ info.name === 'Precise' ? '🎯' : '🚀' }} {{ info.name }} {{ info.recommended ?
+                    {{ info.name }} {{ info.recommended ?
                     '' : '' }}
                 </option>
             </select>

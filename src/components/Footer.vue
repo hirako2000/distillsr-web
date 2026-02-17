@@ -3,15 +3,12 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-6">
                 <router-link to="/" class="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-2">
-                    <i class="fas fa-home"></i>
                     <span>Home</span>
                 </router-link>
                 <router-link to="/how" class="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-2">
-                    <i class="fas fa-question-circle"></i>
                     <span>How it works</span>
                 </router-link>
                 <router-link to="/about" class="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-2">
-                    <i class="fas fa-info-circle"></i>
                     <span>About</span>
                 </router-link>
             </div>
