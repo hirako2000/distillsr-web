@@ -145,19 +145,10 @@ For the complete license details, visit:
 | ✓ Modification | All you want |
 
 
-## 🙏 Acknowledgments
+## 🙏 Ack
 
 - Built with the amazing [ONNX Runtime](https://onnxruntime.ai/) Web library
-- Powered by advanced vision models from the open-source community
 - Inspired by the need for privacy-focused, client-side AI tools
-
-## 📬 Contact
-
-Have questions or suggestions? Feel free to reach out:
-
-- GitHub Issues: [Create an issue](https://github.com/yourusername/ai-image-upscaler/issues)
-- Twitter: [@yourhandle](https://twitter.com/yourhandle)
-
 
 **⭐ Star this repository if you find it useful!**
 
