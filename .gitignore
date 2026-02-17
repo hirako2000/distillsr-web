@@ -1,0 +1,17 @@
+target
+pkg
+
+node_modules
+.DS_Store
+dist
+*.local
+
+.vscode
+
+junk
+.env
+.env.production
+
+a.txt*
+spit.sh
+list.sh
