@@ -1,11 +1,11 @@
 <template>
     <div class="flex items-center gap-4">
-        <div class="relative min-w-[240px]">
+        <div class="relative min-w-[100px]">
             <select :value="modelValue" @change="$emit('update:modelValue', $event.target.value)"
                 class="w-full px-5 py-2 bg-white/5 border border-white/10 rounded-2xl text-white text-sm appearance-none cursor-pointer hover:bg-white/10 focus:outline-none focus:border-purple-500 focus:ring-3 focus:ring-purple-500/20 transition-all">
                 <option v-for="(info, value) in models" :key="value" :value="value" :data-precision="info.name"
                     :data-speed="info.speed" :data-badge="info.badge" class="bg-gray-900">
-                    {{ info.name === 'Precise' ? '🎯' : '🚀' }} {{ info.name }} · {{ info.speed }} {{ info.recommended ?
+                    {{ info.name === 'Precise' ? '🎯' : '🚀' }} {{ info.name }} {{ info.recommended ?
                     '' : '' }}
                 </option>
             </select>
@@ -35,6 +35,6 @@ const emit = defineEmits(['update:modelValue', 'model-changed'])
 const currentModel = computed(() => props.models[props.modelValue])
 
 const currentName = computed(() => currentModel.value?.name || 'Precise')
-const currentSpeed = computed(() => currentModel.value?.speed || 'Best Quality')
+const currentSpeed = computed(() => currentModel.value?.speed || 'Quality')
 const currentBadge = computed(() => currentModel.value?.badge || 'bg-purple-500')
 </script>

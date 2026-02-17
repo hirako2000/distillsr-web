@@ -1,10 +1,11 @@
 <template>
+    <div class="flex-1 flex flex-col">
    <div class="w-full max-w-[1600px] mx-auto flex flex-col min-h-full">
         <WorkerMessage :visible="workerVisible" :text="workerText" />
 
-        <div class="glass rounded-[32px] overflow-hidden shadow-2xl flex flex-col flex-1">
+        <div class="glass fully rounded-[32px] overflow-hidden shadow-2xl flex flex-col flex-1">
             <div
-                class="px-8 py-6 bg-black/30 border-b border-white/5 flex items-center justify-between flex-wrap gap-5">
+                class="px-4 py-6 bg-black/30 border-b border-white/5 flex items-center justify-between flex-wrap gap-5">
                 <div class="flex items-center gap-3">
                     <i
                         class="fas fa-magic text-3xl bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent"></i>
@@ -68,6 +69,7 @@
         <ProcessingOverlay :visible="isProcessing" :total-tiles="totalTiles" :processed-tiles="processedTiles" />
     </div>
     <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="onFileSelected">
+    </div>
 </template>
 
 <script setup>
@@ -109,7 +111,7 @@ const isDragging = ref(false)
 const models = ref({
   'https://pub-b8f791a4eda2462d9bb397bbb62123cd.r2.dev/distillsr_web_fp32.onnx': {
     name: 'Precise',
-    speed: 'Best Quality',
+    speed: 'Quality',
     badge: 'bg-purple-500',
     recommended: true
   },
@@ -270,6 +272,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.fully {
+    min-height: 95vh;
+}
+
 .glass {
     background: rgba(20, 20, 30, 0.7);
     backdrop-filter: blur(20px);

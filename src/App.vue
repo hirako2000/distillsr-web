@@ -2,7 +2,7 @@
   <div class="min-h-screen flex items-center justify-center p-5">
     <div class="w-full max-w-[1600px] mx-auto flex flex-col min-h-[calc(100vh-2.5rem)]">
       <router-view v-slot="{ Component }">
-        <Transition name="slide-fade" mode="out-in" class="flex-1 flex">
+        <Transition name="slide-fade" mode="out-in">
           <component :is="Component" class="flex-1 flex" />
         </Transition>
       </router-view>

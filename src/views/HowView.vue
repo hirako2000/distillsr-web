@@ -1,4 +1,5 @@
 <template>
+    <div class="flex-1 flex flex-col">
     <div class="w-full max-w-[1600px] mx-auto">
         <WorkerMessage :visible="workerVisible" :text="workerText" />
 
@@ -68,6 +69,7 @@
         <ProcessingOverlay :visible="isProcessing" :total-tiles="totalTiles" :processed-tiles="processedTiles" />
     </div>
     <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="onFileSelected">
+    </div>
 </template>
 
 <script setup>
@@ -109,7 +111,7 @@ const isDragging = ref(false)
 const models = ref({
   'https://pub-b8f791a4eda2462d9bb397bbb62123cd.r2.dev/distillsr_web_fp32.onnx': {
     name: 'Precise',
-    speed: 'Best Quality',
+    speed: 'Quality',
     badge: 'bg-purple-500',
     recommended: true
   },

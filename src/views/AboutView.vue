@@ -1,4 +1,5 @@
 <template>
+    <div class="flex-1 flex flex-col">
     <div class="w-full max-w-[1600px] mx-auto">
         <div class="glass rounded-[32px] overflow-hidden shadow-2xl font-thin">
             <div class="px-8 py-6 bg-black/30 border-b border-white/5">
@@ -80,6 +81,7 @@
             
             <Footer />
         </div>
+    </div>
     </div>
 </template>
 
