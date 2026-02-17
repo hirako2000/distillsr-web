@@ -1,9 +1,9 @@
 <template>
     <div class="flex-1 flex flex-col">
-   <div class="w-full max-w-[1600px] mx-auto flex flex-col min-h-full">
+   <div class="w-full max-w-[1600px] mx-auto fully flex flex-col min-h-full">
         <WorkerMessage :visible="workerVisible" :text="workerText" />
 
-        <div class="glass fully rounded-[32px] overflow-hidden shadow-2xl flex flex-col flex-1">
+        <div class="glass rounded-[32px] overflow-hidden shadow-2xl flex flex-col flex-1">
             <div
                 class="px-4 py-6 bg-black/30 border-b border-white/5 flex items-center justify-between flex-wrap gap-5">
                 <div class="flex items-center gap-3">
@@ -11,10 +11,13 @@
                         class="fas fa-magic text-3xl bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent"></i>
                     <h1 class="text-xl font-semibold gradient-text">
                         DistillSR
-                        <span class="text-sm font-normal text-slate-400 ml-2">· Neural Super Resolution</span>
+                        <span class="text-md font-normal text-slate-400 ml-2">Super Resolution</span>
                     </h1>
-                    <span :class="backendClass" :style="{ display: backendVisible ? 'inline-flex' : 'none' }">
-                        <i class="fas fa-microchip mr-1"></i> <span>{{ backendText }}</span>
+                    <span class="" :class="backendClass" :style="{ display: backendVisible ? 'inline-flex' : 'none' }">
+                        <i class="fas fa-microchip mr-1"></i>
+                        <span class="text-xs">
+                            {{ backendText }}
+                        </span>
                     </span>
                 </div>
 

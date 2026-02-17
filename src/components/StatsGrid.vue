@@ -35,7 +35,7 @@ defineProps({
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 100px;
-  padding: 0.5rem 1.25rem;
+  padding: 0.225rem 1.25rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;

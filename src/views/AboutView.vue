@@ -13,10 +13,6 @@
 
             <div class="p-8 text-slate-300 space-y-8">
                 <section>
-                    <h2 class="text-white text-lg font-semibold mb-3 flex items-center gap-2">
-                        <i class="fas fa-rocket text-purple-400"></i>
-                        What's this?
-                    </h2>
                     <p class="leading-relaxed">
                         An attempt to brings state-of-the-art Machine Learning to make super-resolution neural processing work directly in the browser, eliminating 
                         the need for setup, GPU servers, or uploads to external services. 

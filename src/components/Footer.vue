@@ -6,7 +6,7 @@
                     <span>Home</span>
                 </router-link>
                 <router-link to="/how" class="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-2">
-                    <span>How it works</span>
+                    <span>How</span>
                 </router-link>
                 <router-link to="/about" class="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-2">
                     <span>About</span>
