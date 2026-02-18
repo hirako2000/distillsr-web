@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center p-5">
+  <div class="min-h-screen flex items-center justify-center p-2 md:p-5">
     <div class="w-full max-w-[1600px] mx-auto flex flex-col min-h-[calc(100vh-2.5rem)]">
       <router-view v-slot="{ Component }">
         <Transition name="slide-fade" mode="out-in">

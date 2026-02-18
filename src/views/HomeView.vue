@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="p-8 flex-1 flex flex-col">
+            <div class="p-2 md:p-8 flex-1 flex flex-col">
                 <StatusBar :status="status" :status-text="statusText" :backend-info="backendInfo" />
 
                 <div v-if="errorVisible"
