@@ -37,11 +37,11 @@
                     <ul class="list-none space-y-2">
                         <li class="flex items-start gap-3">
                             <span class="w-2 h-2 bg-purple-500 rounded-full mt-2"></span>
-                            <span><span class="text-white font-medium">Precise (Best Quality):</span> Full precision model for maximum fidelity, ideal for detailed photography work.</span>
+                            <span><span class="text-white font-thin font-medium">Precise (Best Quality):</span> Full precision model for maximum fidelity, ideal for detailed photography work.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="w-2 h-2 bg-green-500 rounded-full mt-2"></span>
-                            <span><span class="text-white font-medium">Quantized:</span> Quantized 8-bit model optimized for speed with minimal quality loss, reasonably fast on CPU.</span>
+                            <span><span class="text-white font-thin">Quantized:</span> Quantized 8-bit model optimized for speed with minimal quality loss, reasonably fast on CPU.</span>
                         </li>
                     </ul>
                 </section>
@@ -95,7 +95,7 @@ import Footer from '../components/Footer.vue'
     background: rgba(20, 20, 30, 0.7);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(109, 109, 109, 0.1);
 }
 
 .gradient-text {

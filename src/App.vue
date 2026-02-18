@@ -16,7 +16,7 @@ import { RouterView } from 'vue-router'
 
 <style>
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: "Fira Code", monospace;
 }
 
 body {
