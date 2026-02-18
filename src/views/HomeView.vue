@@ -63,9 +63,17 @@
                     <StatsGrid :input-size="displayInputSize" :output-size="displayOutputSize" :process-time="processTime"
                         :model-name="currentModelInfo?.name" />
 
-                    <ImageComparison :before-image="beforeImageSrc" :after-image="afterImageSrc"
-                        :processing="isProcessing" :prompt-visible="!isProcessing && processedImage"
-                        @slider-ready="handleSliderReady" />
+                    <ImageComparison 
+                        :before-image="beforeImageSrc" 
+                        :after-image="afterImageSrc"
+                        :processing="isProcessing" 
+                        :prompt-visible="!isProcessing && processedImage"
+                        :input-width="workingDimensions.width"
+                        :input-height="workingDimensions.height"
+                        :output-width="workingDimensions.width * scale"
+                        :output-height="workingDimensions.height * scale"
+                        @slider-ready="handleSliderReady" 
+                    />
 
                     <ActionButtons :process-disabled="!session || !originalImage || isProcessing"
                         :download-disabled="!processedImage" @process="processImage" @download="downloadImage" />
@@ -154,12 +162,13 @@ const workingDimensions = computed(() => {
     }
     
     const maxOriginal = Math.max(originalDimensions.value.width, originalDimensions.value.height)
+    const maxOutput = maxOriginal * scale
     
-    if (maxOriginal <= maxDimension.value) {
+    if (maxOutput <= maxDimension.value) {
         return { ...originalDimensions.value }
     }
     
-    const scaleFactor = maxDimension.value / maxOriginal
+    const scaleFactor = maxDimension.value / maxOutput
     return {
         width: Math.round(originalDimensions.value.width * scaleFactor / 4) * 4,
         height: Math.round(originalDimensions.value.height * scaleFactor / 4) * 4

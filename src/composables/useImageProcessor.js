@@ -124,8 +124,8 @@ export default function useImageProcessor() {
       let workingDimensions = { ...originalDimensions }
       let workingImage = originalImage
       
-      if (maxOriginalDimension > maxDimension.value) {
-        const scaleFactor = maxDimension.value / maxOriginalDimension
+      if (maxOriginalDimension * scale > maxDimension.value) {
+        const scaleFactor = maxDimension.value / (maxOriginalDimension * scale)
         workingDimensions = {
           width: Math.round(originalDimensions.width * scaleFactor / 4) * 4,
           height: Math.round(originalDimensions.height * scaleFactor / 4) * 4

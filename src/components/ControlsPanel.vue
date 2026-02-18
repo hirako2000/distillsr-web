@@ -2,7 +2,7 @@
   <div class="controls-panel border border-white/10 rounded-xl bg-black/20 backdrop-blur-sm overflow-hidden">
     <button 
       @click="toggleExpanded" 
-      class="w-full px-5 py-4 flex items-center justify-between text-gray-300 hover:text-white transition-colors group"
+      class="w-full px-5 py-4 flex cursor-pointer items-center justify-between text-gray-300 hover:text-white transition-colors group"
       :class="{ 'border-b border-white/10': expanded }"
     >
       <div class="flex items-center gap-3">
@@ -45,42 +45,30 @@
               Max Dimension
             </label>
             <span class="text-sm bg-gradient-to-r from-purple-500 to-pink-500 px-3 py-1 rounded-full text-white font-medium">
-              {{ maxDimension }}px
+              {{ maxDimension}}px
             </span>
           </div>
           
           <div class="relative pt-2 pb-6">
-            <input 
-              type="range" 
-              v-model.number="maxDimension"
-              min="128"
-              max="2048"
-              step="64"
-              class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-transparent"
-              :style="maxDimensionRangeStyle"
-            />
-            
-            <div class="flex justify-between text-xs text-gray-500 mt-3 px-1">
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>128</span>
-              </span>
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>512</span>
-              </span>
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>1024</span>
-              </span>
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>1536</span>
-              </span>
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>2048</span>
-              </span>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                :value="maxDimension"
+                min="512"
+                max="4096"
+                step="128"
+                class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-transparent slider"
+                :style="maxDimensionRangeStyle"
+                @input="onMaxDimensionInput"
+                @change="onMaxDimensionChange"
+              />
+              <div class="slider-marks">
+                <div class="slider-mark" :style="{ left: '0%' }"><span>512</span></div>
+                <div class="slider-mark" :style="{ left: '14.3%' }"><span>1024</span></div>
+                <div class="slider-mark" :style="{ left: '42.9%' }"><span>2048</span></div>
+                <div class="slider-mark" :style="{ left: '71.5%' }"><span>3072</span></div>
+                <div class="slider-mark" :style="{ left: '100%' }"><span>4096</span></div>
+              </div>
             </div>
           </div>
           
@@ -88,7 +76,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Images larger than this will be resized before processing</span>
+            <span>Images will be scaled up 4x at most.</span>
           </p>
         </div>
 
@@ -103,37 +91,26 @@
           </div>
           
           <div class="relative pt-2 pb-6">
-            <input 
-              type="range" 
-              v-model.number="tileSize"
-              min="64"
-              max="384"
-              step="16"
-              class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-transparent"
-              :style="tileSizeRangeStyle"
-            />
-            
-            <div class="flex justify-between text-xs text-gray-500 mt-3 px-1">
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>64</span>
-              </span>
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>128</span>
-              </span>
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>192</span>
-              </span>
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>256</span>
-              </span>
-              <span class="flex flex-col items-center">
-                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
-                <span>384</span>
-              </span>
+            <div class="slider-container">
+              <input 
+                type="range" 
+                :value="tileSize"
+                min="64"
+                max="384"
+                step="1"
+                class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-transparent slider"
+                :style="tileSizeRangeStyle"
+                @input="onTileSizeInput"
+                @change="onTileSizeChange"
+              />
+              <div class="slider-marks">
+                <div class="slider-mark" :style="{ left: '0%' }"><span>64</span></div>
+                <div class="slider-mark" :style="{ left: '20%' }"><span>128</span></div>
+                <div class="slider-mark" :style="{ left: '40%' }"><span>192</span></div>
+                <div class="slider-mark" :style="{ left: '60%' }"><span>256</span></div>
+                <div class="slider-mark" :style="{ left: '80%' }"><span>320</span></div>
+                <div class="slider-mark" :style="{ left: '100%' }"><span>384</span></div>
+              </div>
             </div>
           </div>
 
@@ -149,7 +126,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-gray-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                 </svg>
-                <span>Larger tiles = Finer processing but more memory. Must be divisible by 16.</span>
+                <span>Larger tiles = Finer processing but more memory.</span>
               </div>
             </transition>
           </div>
@@ -160,7 +137,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -176,12 +153,27 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'update:tileValue'])
 
 const expanded = ref(false)
-const maxDimension = ref(props.modelValue)
-const tileSize = ref(props.tileValue)
+const maxDimension = ref(512)
+const tileSize = ref(192)
+
+const roundToNearest = (value, multiple) => {
+  return Math.round(value / multiple) * multiple
+}
+
+const loadFromStorage = () => {
+  const savedMax = localStorage.getItem('distillsr_max_dimension')
+  const savedTile = localStorage.getItem('distillsr_tile_size')
+  
+  maxDimension.value = savedMax ? parseInt(savedMax, 10) : props.modelValue
+  tileSize.value = savedTile ? parseInt(savedTile, 10) : props.tileValue
+  
+  emit('update:modelValue', maxDimension.value)
+  emit('update:tileValue', tileSize.value)
+}
 
 const maxDimensionRangeStyle = computed(() => {
-  const min = 128
-  const max = 2048
+  const min = 512
+  const max = 4096
   const percent = ((maxDimension.value - min) / (max - min)) * 100
   return {
     background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${percent}%, rgba(255,255,255,0.1) ${percent}%, rgba(255,255,255,0.1) 100%)`
@@ -197,20 +189,62 @@ const tileSizeRangeStyle = computed(() => {
   }
 })
 
+const onMaxDimensionInput = (e) => {
+  const raw = parseInt(e.target.value, 10)
+  maxDimension.value = raw
+}
+
+const onMaxDimensionChange = (e) => {
+  const raw = parseInt(e.target.value, 10)
+  const rounded = roundToNearest(raw, 128)
+  const clamped = Math.min(4096, Math.max(512, rounded))
+  maxDimension.value = clamped
+  localStorage.setItem('distillsr_max_dimension', clamped)
+  emit('update:modelValue', clamped)
+}
+
+const onTileSizeInput = (e) => {
+  const raw = parseInt(e.target.value, 10)
+  tileSize.value = raw
+}
+
+const onTileSizeChange = (e) => {
+  const raw = parseInt(e.target.value, 10)
+  const rounded = roundToNearest(raw, 16)
+  const clamped = Math.min(384, Math.max(64, rounded))
+  tileSize.value = clamped
+  localStorage.setItem('distillsr_tile_size', clamped)
+  emit('update:tileValue', clamped)
+}
+
 watch(maxDimension, (newValue) => {
-  emit('update:modelValue', newValue)
+  if (newValue !== roundToNearest(newValue, 128)) {
+    const rounded = roundToNearest(newValue, 128)
+    maxDimension.value = rounded
+  }
 })
 
 watch(tileSize, (newValue) => {
-  emit('update:tileValue', newValue)
+  if (newValue !== roundToNearest(newValue, 16)) {
+    const rounded = roundToNearest(newValue, 16)
+    tileSize.value = rounded
+  }
 })
 
 watch(() => props.modelValue, (newValue) => {
-  maxDimension.value = newValue
+  if (newValue !== maxDimension.value) {
+    maxDimension.value = newValue
+  }
 })
 
 watch(() => props.tileValue, (newValue) => {
-  tileSize.value = newValue
+  if (newValue !== tileSize.value) {
+    tileSize.value = newValue
+  }
+})
+
+onMounted(() => {
+  loadFromStorage()
 })
 
 const toggleExpanded = () => {
@@ -219,6 +253,56 @@ const toggleExpanded = () => {
 </script>
 
 <style scoped>
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 2em;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.5em;
+  z-index: 2;
+}
+
+.slider-marks {
+
+    z-index: 1;
+    width: calc(100% - 1.125em);
+    padding-right: 1em;
+    /* justify-self: anchor-center; */
+    height: 1.5em;
+    position: absolute;
+    top: 1em;
+    left: 0.525em;
+}
+
+.slider-mark {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.slider-mark::before {
+  content: '';
+  width: 0.125em;
+  height: 0.5em;
+  background: #4b5563;
+  border-radius: 0.0625em;
+}
+
+.slider-mark span {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  white-space: nowrap;
+}
+
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -230,6 +314,9 @@ input[type=range]::-webkit-slider-thumb {
   border: 0.125em solid rgba(255,255,255,0.5);
   box-shadow: 0 0.125em 0.5em rgba(168, 85, 247, 0.4);
   transition: all 0.2s;
+  z-index: 3;
+  position: relative;
+  margin-top: -0.225em;;
 }
 
 input[type=range]::-webkit-slider-thumb:hover {
@@ -247,11 +334,32 @@ input[type=range]::-moz-range-thumb {
   border: 0.125em solid rgba(255,255,255,0.5);
   box-shadow: 0 0.125em 0.5em rgba(168, 85, 247, 0.4);
   transition: all 0.2s;
+  z-index: 3;
+  position: relative;
 }
 
 input[type=range]::-moz-range-thumb:hover {
   transform: scale(1.15);
   border-color: white;
   box-shadow: 0 0.25em 0.75em rgba(168, 85, 247, 0.6);
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.5em;
+  background: transparent;
+  border-radius: 0.25em;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 0.5em;
+  background: transparent;
+  border-radius: 0.25em;
 }
 </style>
