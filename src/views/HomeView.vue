@@ -40,7 +40,10 @@
                         @file-selected="handleFileSelect"
                         :has-image="imageLoaded"
                     />
-                    <ControlsPanel v-model="maxDimension" />
+                    <ControlsPanel 
+                        v-model="maxDimension" 
+                        v-model:tileValue="tileSize"
+                    />
                 </div>
 
                 <div v-if="!imageLoaded" 
@@ -79,7 +82,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import ModelSelector from '../components/ModelSelector.vue'
 import StatusBar from '../components/StatusBar.vue'
 import CompactUploadArea from '../components/CompactUploadArea.vue'
@@ -109,6 +112,7 @@ const {
     errorVisible,
     errorText,
     maxDimension,
+    tileSize,
     loadModel,
     runTiledInference
 } = useImageProcessor()

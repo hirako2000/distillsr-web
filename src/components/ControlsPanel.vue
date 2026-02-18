@@ -33,12 +33,12 @@
     <transition
       enter-active-class="transition-all duration-300 ease-out"
       enter-from-class="opacity-0 max-h-0"
-      enter-to-class="opacity-100 max-h-48"
+      enter-to-class="opacity-100 max-h-96"
       leave-active-class="transition-all duration-200 ease-in"
-      leave-from-class="opacity-100 max-h-48"
+      leave-from-class="opacity-100 max-h-96"
       leave-to-class="opacity-0 max-h-0"
     >
-      <div v-if="expanded" class="px-5 py-4 space-y-4">
+      <div v-if="expanded" class="px-5 py-4 space-y-6">
         <div>
           <div class="flex justify-between items-center mb-3">
             <label class="text-sm font-medium text-gray-300">
@@ -57,7 +57,7 @@
               max="2048"
               step="64"
               class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-transparent"
-              :style="rangeStyle"
+              :style="maxDimensionRangeStyle"
             />
             
             <div class="flex justify-between text-xs text-gray-500 mt-3 px-1">
@@ -88,8 +88,71 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Images larger than this will be resized before processing (step size 64px for optimal tiling)</span>
+            <span>Images larger than this will be resized before processing</span>
           </p>
+        </div>
+
+        <div class="border-t border-white/10 pt-4">
+          <div class="flex justify-between items-center mb-3">
+            <label class="text-sm font-medium text-gray-300">
+              Tile Size
+            </label>
+            <span class="text-sm bg-gradient-to-r from-purple-500 to-pink-500 px-3 py-1 rounded-full text-white font-medium">
+              {{ tileSize }}px
+            </span>
+          </div>
+          
+          <div class="relative pt-2 pb-6">
+            <input 
+              type="range" 
+              v-model.number="tileSize"
+              min="64"
+              max="384"
+              step="16"
+              class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-transparent"
+              :style="tileSizeRangeStyle"
+            />
+            
+            <div class="flex justify-between text-xs text-gray-500 mt-3 px-1">
+              <span class="flex flex-col items-center">
+                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
+                <span>64</span>
+              </span>
+              <span class="flex flex-col items-center">
+                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
+                <span>128</span>
+              </span>
+              <span class="flex flex-col items-center">
+                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
+                <span>192</span>
+              </span>
+              <span class="flex flex-col items-center">
+                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
+                <span>256</span>
+              </span>
+              <span class="flex flex-col items-center">
+                <span class="w-1 h-1 bg-gray-600 rounded-full mb-1"></span>
+                <span>384</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-2 min-h-[2.5em]">
+            <transition mode="out-in" enter-active-class="transition-opacity duration-200" leave-active-class="transition-opacity duration-150" enter-from-class="opacity-0" enter-to-class="opacity-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
+              <div v-if="tileSize > 192" key="warning" class="flex items-start gap-2 text-xs text-yellow-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-yellow-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+                <span>Larger tiles may cause GPU out-of-memory errors on less powerful hardware. Reduce if processing fails.</span>
+              </div>
+              <div v-else key="info" class="flex items-start gap-2 text-xs text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-gray-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                </svg>
+                <span>Larger tiles = Finer processing but more memory. Must be divisible by 16.</span>
+              </div>
+            </transition>
+          </div>
         </div>
       </div>
     </transition>
@@ -103,18 +166,32 @@ const props = defineProps({
   modelValue: {
     type: Number,
     default: 1024
+  },
+  tileValue: {
+    type: Number,
+    default: 192
   }
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'update:tileValue'])
 
 const expanded = ref(false)
 const maxDimension = ref(props.modelValue)
+const tileSize = ref(props.tileValue)
 
-const rangeStyle = computed(() => {
+const maxDimensionRangeStyle = computed(() => {
   const min = 128
   const max = 2048
   const percent = ((maxDimension.value - min) / (max - min)) * 100
+  return {
+    background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${percent}%, rgba(255,255,255,0.1) ${percent}%, rgba(255,255,255,0.1) 100%)`
+  }
+})
+
+const tileSizeRangeStyle = computed(() => {
+  const min = 64
+  const max = 384
+  const percent = ((tileSize.value - min) / (max - min)) * 100
   return {
     background: `linear-gradient(to right, #a855f7 0%, #a855f7 ${percent}%, rgba(255,255,255,0.1) ${percent}%, rgba(255,255,255,0.1) 100%)`
   }
@@ -124,8 +201,16 @@ watch(maxDimension, (newValue) => {
   emit('update:modelValue', newValue)
 })
 
+watch(tileSize, (newValue) => {
+  emit('update:tileValue', newValue)
+})
+
 watch(() => props.modelValue, (newValue) => {
   maxDimension.value = newValue
+})
+
+watch(() => props.tileValue, (newValue) => {
+  tileSize.value = newValue
 })
 
 const toggleExpanded = () => {
@@ -137,36 +222,36 @@ const toggleExpanded = () => {
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 1.125em;
+  height: 1.125em;
   border-radius: 50%;
   background: linear-gradient(135deg, #a855f7, #ec4899);
   cursor: pointer;
-  border: 2px solid rgba(255,255,255,0.5);
-  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
+  border: 0.125em solid rgba(255,255,255,0.5);
+  box-shadow: 0 0.125em 0.5em rgba(168, 85, 247, 0.4);
   transition: all 0.2s;
 }
 
 input[type=range]::-webkit-slider-thumb:hover {
   transform: scale(1.15);
   border-color: white;
-  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.6);
+  box-shadow: 0 0.25em 0.75em rgba(168, 85, 247, 0.6);
 }
 
 input[type=range]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
+  width: 1.125em;
+  height: 1.125em;
   border-radius: 50%;
   background: linear-gradient(135deg, #a855f7, #ec4899);
   cursor: pointer;
-  border: 2px solid rgba(255,255,255,0.5);
-  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
+  border: 0.125em solid rgba(255,255,255,0.5);
+  box-shadow: 0 0.125em 0.5em rgba(168, 85, 247, 0.4);
   transition: all 0.2s;
 }
 
 input[type=range]::-moz-range-thumb:hover {
   transform: scale(1.15);
   border-color: white;
-  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.6);
+  box-shadow: 0 0.25em 0.75em rgba(168, 85, 247, 0.6);
 }
 </style>
