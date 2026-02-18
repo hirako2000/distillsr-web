@@ -7,11 +7,10 @@
             <div
                 class="px-4 py-6 bg-black/30 border-b border-white/5 flex items-center justify-between flex-wrap gap-5">
                 <div class="flex items-center gap-3">
-                    <i
-                        class="fas fa-magic text-3xl bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent"></i>
-                    <h1 class="text-xl font-semibold gradient-text">
+                    <img class="logo" :src=Logo ></img>
+                    <h1 class="text-sm md:text-xl font-semibold gradient-text">
                         DistillSR
-                        <span class="text-md font-normal text-slate-400 ml-2">Super Resolution</span>
+                        <span class="text-xs md:text-md font-normal text-slate-400 ml-2">Super Resolution</span>
                     </h1>
                     <span class="" :class="backendClass" :style="{ display: backendVisible ? 'inline-flex' : 'none' }">
                         <i class="fas fa-microchip mr-1"></i>
@@ -103,6 +102,7 @@ import Footer from '../components/Footer.vue'
 import ControlsPanel from '../components/ControlsPanel.vue'
 import useImageProcessor from '../composables/useImageProcessor'
 import imageCompression from 'browser-image-compression'
+import Logo from '../assets/img/favicon-96x96.png'
 
 const {
     session,
@@ -314,6 +314,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.logo {
+    height: 2em;
+}
 .fully {
     min-height: 95vh;
 }
