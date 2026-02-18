@@ -21,7 +21,9 @@
                     </span>
                 </div>
 
-                <ModelSelector v-model="selectedModel" :models="models" @model-changed="handleModelChange" />
+                <div class="flex items-center gap-3">
+                    <ModelSelector v-model="selectedModel" :models="models" @model-changed="handleModelChange" />
+                </div>
             </div>
 
             <div class="p-8 flex-1 flex flex-col">
@@ -33,11 +35,12 @@
                     <span>{{ errorText }}</span>
                 </div>
 
-                <div class="mb-6">
+                <div class="mb-6 space-y-3">
                     <CompactUploadArea 
                         @file-selected="handleFileSelect"
                         :has-image="imageLoaded"
                     />
+                    <ControlsPanel v-model="maxDimension" />
                 </div>
 
                 <div v-if="!imageLoaded" 
@@ -54,7 +57,7 @@
                 </div>
 
                 <div v-else class="fade-in flex-1 flex flex-col">
-                    <StatsGrid :input-size="inputSize" :output-size="outputSize" :process-time="processTime"
+                    <StatsGrid :input-size="displayInputSize" :output-size="displayOutputSize" :process-time="processTime"
                         :model-name="currentModelInfo?.name" />
 
                     <ImageComparison :before-image="beforeImageSrc" :after-image="afterImageSrc"
@@ -76,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import ModelSelector from '../components/ModelSelector.vue'
 import StatusBar from '../components/StatusBar.vue'
 import CompactUploadArea from '../components/CompactUploadArea.vue'
@@ -86,6 +89,7 @@ import ActionButtons from '../components/ActionButtons.vue'
 import ProcessingOverlay from '../components/ProcessingOverlay.vue'
 import WorkerMessage from '../components/WorkerMessage.vue'
 import Footer from '../components/Footer.vue'
+import ControlsPanel from '../components/ControlsPanel.vue'
 import useImageProcessor from '../composables/useImageProcessor'
 import imageCompression from 'browser-image-compression'
 
@@ -104,6 +108,7 @@ const {
     statusText,
     errorVisible,
     errorText,
+    maxDimension,
     loadModel,
     runTiledInference
 } = useImageProcessor()
@@ -136,11 +141,36 @@ const processedImage = ref(null)
 const beforeImageSrc = ref(null)
 const afterImageSrc = ref(null)
 const imageLoaded = ref(false)
-const inputSize = ref('—')
-const outputSize = ref('—')
 const processTime = ref('—')
 const scale = 4
-const MAX_DIMENSION = 1200
+
+const workingDimensions = computed(() => {
+    if (!originalDimensions.value.width || !originalDimensions.value.height) {
+        return { width: 0, height: 0 }
+    }
+    
+    const maxOriginal = Math.max(originalDimensions.value.width, originalDimensions.value.height)
+    
+    if (maxOriginal <= maxDimension.value) {
+        return { ...originalDimensions.value }
+    }
+    
+    const scaleFactor = maxDimension.value / maxOriginal
+    return {
+        width: Math.round(originalDimensions.value.width * scaleFactor / 4) * 4,
+        height: Math.round(originalDimensions.value.height * scaleFactor / 4) * 4
+    }
+})
+
+const displayInputSize = computed(() => {
+    if (!workingDimensions.value.width || !workingDimensions.value.height) return '—'
+    return `${workingDimensions.value.width} × ${workingDimensions.value.height}`
+})
+
+const displayOutputSize = computed(() => {
+    if (!workingDimensions.value.width || !workingDimensions.value.height) return '—'
+    return `${workingDimensions.value.width * scale} × ${workingDimensions.value.height * scale} (4x)`
+})
 
 const handleModelChange = async (model) => {
     selectedModel.value = model
@@ -178,8 +208,7 @@ const onFileSelected = (e) => {
 
 const resizeImageIfNeeded = async (file) => {
     const options = {
-        maxSizeMB: 10,
-        maxWidthOrHeight: MAX_DIMENSION,
+        maxWidthOrHeight: maxDimension.value,
         useWebWorker: true,
         preserveExif: false
     }
@@ -208,8 +237,8 @@ const handleFileSelect = async (file) => {
             originalImageData.value = e.target.result
             originalImage.value = img
 
-            const outputWidth = img.width * scale
-            const outputHeight = img.height * scale
+            const outputWidth = workingDimensions.value.width * scale
+            const outputHeight = workingDimensions.value.height * scale
 
             const beforeCanvas = document.createElement('canvas')
             beforeCanvas.width = outputWidth
@@ -225,8 +254,6 @@ const handleFileSelect = async (file) => {
             afterCtx.drawImage(img, 0, 0, outputWidth, outputHeight)
             afterImageSrc.value = afterCanvas.toDataURL('image/png')
 
-            inputSize.value = `${img.width} × ${img.height}`
-            outputSize.value = `${outputWidth} × ${outputHeight} (4x)`
             processTime.value = '—'
 
             imageLoaded.value = true
@@ -251,7 +278,6 @@ const processImage = async () => {
     if (result) {
         processedImage.value = result.imageData
         afterImageSrc.value = result.imageData
-        outputSize.value = `${result.width} × ${result.height} (4x)`
 
         const endTime = performance.now()
         processTime.value = `${((endTime - startTime) / 1000).toFixed(1)}s`

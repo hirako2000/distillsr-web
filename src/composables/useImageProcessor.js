@@ -1,7 +1,6 @@
 import { ref } from 'vue'
 import * as ort from 'onnxruntime-web'
 
-
 export default function useImageProcessor() {
   const session = ref(null)
   const isProcessing = ref(false)
@@ -17,6 +16,7 @@ export default function useImageProcessor() {
   const statusText = ref('Initializing...')
   const errorVisible = ref(false)
   const errorText = ref('')
+  const maxDimension = ref(1024)
 
   const scale = 4
 
@@ -114,17 +114,38 @@ export default function useImageProcessor() {
     try {
       hideError()
 
-      const MAX_TILE_SIZE = 128
+      const MAX_TILE_SIZE = 192
       const TARGET_TILES = 1
       const OVERLAP_FACTOR = 0.125
 
-      const maxDimension = Math.max(originalDimensions.width, originalDimensions.height)
+      const maxOriginalDimension = Math.max(originalDimensions.width, originalDimensions.height)
+      
+      let workingDimensions = { ...originalDimensions }
+      let workingImage = originalImage
+      
+      if (maxOriginalDimension > maxDimension.value) {
+        const scaleFactor = maxDimension.value / maxOriginalDimension
+        workingDimensions = {
+          width: Math.round(originalDimensions.width * scaleFactor / 4) * 4,
+          height: Math.round(originalDimensions.height * scaleFactor / 4) * 4
+        }
+        
+        const tempCanvas = document.createElement('canvas')
+        tempCanvas.width = workingDimensions.width
+        tempCanvas.height = workingDimensions.height
+        const tempCtx = tempCanvas.getContext('2d')
+        tempCtx.drawImage(originalImage, 0, 0, workingDimensions.width, workingDimensions.height)
+        
+        workingImage = tempCanvas
+      }
+
+      const maxDimensionWorking = Math.max(workingDimensions.width, workingDimensions.height)
       let tileSize = MAX_TILE_SIZE
 
-      if (maxDimension <= MAX_TILE_SIZE) {
-        tileSize = Math.ceil(maxDimension / 4) * 4
+      if (maxDimensionWorking <= MAX_TILE_SIZE) {
+        tileSize = Math.ceil(maxDimensionWorking / 4) * 4
       } else {
-        const targetTileSize = Math.ceil(maxDimension / TARGET_TILES)
+        const targetTileSize = Math.ceil(maxDimensionWorking / TARGET_TILES)
         tileSize = Math.min(MAX_TILE_SIZE, Math.ceil(targetTileSize / 4) * 4)
       }
 
@@ -132,20 +153,20 @@ export default function useImageProcessor() {
       const overlap = Math.max(8, Math.floor(tileSize * OVERLAP_FACTOR / 4) * 4)
       const step = tileSize - overlap
 
-      const tilesX = Math.max(1, Math.ceil((originalDimensions.width - tileSize) / step) + 1)
-      const tilesY = Math.max(1, Math.ceil((originalDimensions.height - tileSize) / step) + 1)
+      const tilesX = Math.max(1, Math.ceil((workingDimensions.width - tileSize) / step) + 1)
+      const tilesY = Math.max(1, Math.ceil((workingDimensions.height - tileSize) / step) + 1)
 
       totalTiles.value = tilesX * tilesY
       processedTiles.value = 0
 
       const sourceCanvas = document.createElement('canvas')
-      sourceCanvas.width = originalDimensions.width
-      sourceCanvas.height = originalDimensions.height
+      sourceCanvas.width = workingDimensions.width
+      sourceCanvas.height = workingDimensions.height
       const sourceCtx = sourceCanvas.getContext('2d')
-      sourceCtx.drawImage(originalImage, 0, 0)
+      sourceCtx.drawImage(workingImage, 0, 0)
 
-      const outputWidth = originalDimensions.width * scale
-      const outputHeight = originalDimensions.height * scale
+      const outputWidth = workingDimensions.width * scale
+      const outputHeight = workingDimensions.height * scale
       const outputCanvas = document.createElement('canvas')
       outputCanvas.width = outputWidth
       outputCanvas.height = outputHeight
@@ -153,11 +174,11 @@ export default function useImageProcessor() {
 
       for (let ty = 0; ty < tilesY; ty++) {
         for (let tx = 0; tx < tilesX; tx++) {
-          const x = Math.min(tx * step, originalDimensions.width - tileSize)
-          const y = Math.min(ty * step, originalDimensions.height - tileSize)
+          const x = Math.min(tx * step, workingDimensions.width - tileSize)
+          const y = Math.min(ty * step, workingDimensions.height - tileSize)
 
-          const tileWidth = Math.min(tileSize, originalDimensions.width - x)
-          const tileHeight = Math.min(tileSize, originalDimensions.height - y)
+          const tileWidth = Math.min(tileSize, workingDimensions.width - x)
+          const tileHeight = Math.min(tileSize, workingDimensions.height - y)
 
           let validX = 0
           let validY = 0
@@ -293,6 +314,7 @@ export default function useImageProcessor() {
     statusText,
     errorVisible,
     errorText,
+    maxDimension,
     hideError,
     showError,
     setStatus,
