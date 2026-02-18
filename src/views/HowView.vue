@@ -18,10 +18,10 @@
                     </h2>
                     <p class="leading-relaxed">
                         DistillSR is a lightweight super-resolution model based on an optimized PLKSR architecture. 
-                        It uses a combination of spatial and channel attention mechanisms to reconstruct high-frequency 
+                        It uses a combination of spatial and <a href="https://arxiv.org/abs/1904.05873">channel attention mechanisms</a> to reconstruct high-frequency 
                         details from low-resolution inputs. The model has been retrained on diverse datasets with 
                         advanced distillation techniques, resulting in faster inference and sharper outputs compared 
-                        to the original traditional (very research focused) approach.
+                        to the <a href="https://arxiv.org/abs/2404.11848">original (very research focused) approach</a>.
                     </p>
                 </section>
                 
@@ -31,7 +31,7 @@
                         Performance
                     </h2>
                     <p class="leading-relaxed mb-3">
-                        The model employs tile-based processing to handle images of any size, with pixel perfect overlap 
+                        The model employs <a href="https://en.wikipedia.org/wiki/Tiled_rendering">tile-based</a> processing to handle images of any size, with pixel perfect overlap 
                         to eliminate seam artifacts. Two optimized versions are available:
                     </p>
                     <ul class="list-none space-y-2">
@@ -52,7 +52,7 @@
                         WebGPU
                     </h2>
                     <p class="leading-relaxed">
-                        Leverages WebGPU for hardware accelerated inference when available, 
+                        Leverages <a href="https://en.wikipedia.org/wiki/WebGPU">WebGPU</a> for hardware accelerated inference when available, 
                         fall back to WebAssembly CPU execution otherwise. The INT8 quantized model is specifically 
                         optimized for CPU paths, either way. All processing 
                         happens locally in your browser—no server uploads, no privacy concerns.
@@ -67,11 +67,11 @@
                     <ul class="list-none space-y-2">
                         <li class="flex items-start gap-3">
                             <span class="w-2 h-2 bg-purple-500 rounded-full mt-2"></span>
-                            <span>4× upscaling while preserving fine details and textures</span>
+                            <span>4× <a href="https://en.wikipedia.org/wiki/Image_scaling#Deep_convolutional_neural_networks">upscaling</a> while preserving fine details and textures</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="w-2 h-2 bg-purple-500 rounded-full mt-2"></span>
-                            <span>Advanced de-ringing and de-blocking for compressed sources</span>
+                            <span>Advanced de-<a href="https://en.wikipedia.org/wiki/Ringing_artifacts">ringing</a> and <a href="https://en.wikipedia.org/wiki/Deblocking_filter">de-blocking</a> for compressed sources</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="w-2 h-2 bg-purple-500 rounded-full mt-2"></span>
@@ -91,6 +91,15 @@ import Footer from '../components/Footer.vue'
 </script>
 
 <style scoped>
+a {
+    text-decoration: underline;
+    transition: color 0.1s linear;
+}
+a:hover {
+    color: white;
+    transition: color 0.3s linear;
+}
+
 .glass {
     background: rgba(20, 20, 30, 0.7);
     backdrop-filter: blur(20px);
