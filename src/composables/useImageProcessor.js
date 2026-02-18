@@ -114,7 +114,7 @@ export default function useImageProcessor() {
     try {
       hideError()
 
-      const MAX_TILE_SIZE = 64
+      const MAX_TILE_SIZE = 128
       const TARGET_TILES = 1
       const OVERLAP_FACTOR = 0.125
 
