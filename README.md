@@ -7,17 +7,17 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge)](https://tailwindcss.com/)
 [![WebGPU](https://img.shields.io/badge/WebGPU-Ready-FF6B6B?style=for-the-badge)](https://www.w3.org/TR/webgpu/)
 [![Rsbuild](https://img.shields.io/badge/Rsbuild-000000?style=for-the-badge)](https://rsbuild.rs/)
-
+[![CC-Licence](https://img.shields.io/badge/License-CC--BY--NC-blue?style=for-the-badge)](https://creativecommons.org/licenses/by-nc/4.0/deed.en)
 ![example](./img/example.jpg)
 
 ## 🚀 Features
 
-- **🖼️ AI-Powered Upscaling**: Increase image resolution by 4x with no hallucination
-- **⚡ Browser-Native**: Runs entirely in your browser using ONNX Runtime Web
-- **🎯 GPU Acceleration**: Leverages WebGPU for lightning-fast processing
-- **🧩 Tile-Based Processing**: Handles large images efficiently with smart tiling
-- **📱 Responsive Design**: Works seamlessly on desktop and mobile devices
-- **🔒 Privacy First**: Your images never leave your device
+**🖼️ AI-Powered Upscaling**: Increase image resolution by 4x with no hallucination
+**⚡ Browser-Native**: Runs entirely in your browser using ONNX Runtime Web
+**🎯 GPU Acceleration**: Leverages WebGPU for lightning-fast processing
+**🧩 Tile-Based Processing**: Handles large images efficiently with smart tiling
+**📱 Responsive Design**: Works seamlessly on desktop and mobile devices
+**🔒 Privacy First**: Your images never leave your device
 
 ## 🎯 How It Works
 
@@ -47,7 +47,7 @@ For dev...
 ### Prerequisites
 
 - Node.js 20+
-- npm (or better, pnom)
+- npm (or better, pnpm)
 - Modern browser with WebGPU support (optional but recommended)
 
 ### Installation
@@ -121,7 +121,7 @@ Contributions are welcome! Here's how you can help:
 
 ## 📝 License
 
-This work is licensed under a **Creative Commons Attribution-NonCommercial 4.0 International License** (CC BY-NC 4.0).
+This work is licensed under a **Creative Commons Attribution-NonCommercial 4.0 International License**.
 
 ### You are free to:
 
@@ -137,8 +137,7 @@ This work is licensed under a **Creative Commons Attribution-NonCommercial 4.0 I
 - **No additional restrictions** — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
 
-For the complete license details, visit:  
-[https://creativecommons.org/licenses/by-nc/4.0/legalcode](https://creativecommons.org/licenses/by-nc/4.0/legalcode)
+For the complete license details, visit [creativecommons.org/licenses/by-nc/4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode)
 
 | Permissions | Restrictions |
 |-------------|--------------|
@@ -152,6 +151,6 @@ For the complete license details, visit:
 - Built with the amazing [ONNX Runtime](https://onnxruntime.ai/) Web library
 - Inspired by the need for privacy-focused, client-side AI tools
 
-**⭐ Star this repository if you find it useful!**
+*Made with ❤️ for the open-source community*
 
-*Made with ❤️ for the open-source community under CC BY-NC 4.0*
+**⭐ Star this repository if you find it useful!**

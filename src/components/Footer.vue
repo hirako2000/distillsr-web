@@ -1,6 +1,6 @@
 <template>
     <div class="border-t border-white/5 px-8 py-4 bg-black/20">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between font-thin">
             <div class="flex items-center gap-6">
                 <router-link to="/" class="text-slate-400 hover:text-white transition-colors text-sm flex items-center gap-2">
                     <span>Home</span>

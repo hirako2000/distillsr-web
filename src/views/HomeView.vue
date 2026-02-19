@@ -14,7 +14,7 @@
                     </h1>
                     <span class="" :class="backendClass" :style="{ display: backendVisible ? 'inline-flex' : 'none' }">
                         <i class="fas fa-microchip mr-1"></i>
-                        <span class="text-xs">
+                        <span class="">
                             {{ backendText }}
                         </span>
                     </span>
@@ -131,13 +131,13 @@ const isDragging = ref(false)
 const models = ref({
   'https://pub-b8f791a4eda2462d9bb397bbb62123cd.r2.dev/distillsr_web_fp32.onnx': {
     name: 'Precise',
-    speed: 'Quality',
-    badge: 'bg-purple-500',
+    speed: 'GPU',
+    badge: 'bg-gradient-to-r from-purple-500 to-pink-500',
     recommended: true
   },
   'https://pub-b8f791a4eda2462d9bb397bbb62123cd.r2.dev/distillsr_web_int8.onnx': {
     name: 'Quantized',
-    speed: 'Fast CPU',
+    speed: 'CPU',
     badge: 'bg-green-500',
     recommended: false
   }
@@ -316,7 +316,33 @@ onMounted(() => {
 <style scoped>
 .logo {
     height: 2em;
+    /* triple-spin: the animation name
+       6s: total duration for all 3 spins
+       ease-in-out: smooth start/stop
+       1s: the 1-second delay before starting
+       forwards: stays at 1080deg (original position) when done
+    */
+    animation: triple-spin 6s ease-in-out 1s forwards;
 }
+
+@keyframes triple-spin {
+    /* 0% to 25%: First full rotation */
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(520deg); }
+    /* 25% to 33%: Pause at 1st circle */
+    33%  { transform: rotate(520deg); }
+
+    /* 33% to 58%: Second full rotation (to 720) */
+    58%  { transform: rotate(790deg); }
+    /* 58% to 66%: Pause at 2nd circle */
+    66%  { transform: rotate(790deg); }
+
+    /* 66% to 92%: Third full rotation (to 1080) */
+    92%  { transform: rotate(1080deg); }
+    /* 92% to 100%: Final settle at origin */
+    100% { transform: rotate(1080deg); }
+}
+
 .fully {
     min-height: 95vh;
 }
@@ -330,7 +356,7 @@ onMounted(() => {
 
 .gradient-text {
     background: linear-gradient(135deg, #fff, #cbd5e1);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 

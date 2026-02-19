@@ -79,7 +79,7 @@ export default function useImageProcessor() {
       backendText.value = isGPU ? 'GPU/GPU' : 'GPU/CPU'
       backendClass.value = isGPU ? 'gpu-indicator' : 'cpu-warning'
 
-      setStatus('loaded', `${modelName} model ready`)
+      setStatus('loaded', `Model ready`)
 
     } catch (error) {
       console.error('Failed to load model:', error)

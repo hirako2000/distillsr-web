@@ -95,7 +95,7 @@ import Footer from '../components/Footer.vue'
 
 .gradient-text {
     background: linear-gradient(135deg, #fff, #cbd5e1);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 </style>
