@@ -1,8 +1,8 @@
 {
   "name": "distillsr-web",
   "type": "module",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
+  "private": false,
   "scripts": {
     "dev": "rsbuild dev",
     "build": "rsbuild build && cp -r ./src/assets/img dist/static/",
