@@ -12,12 +12,12 @@
 
 ## 🚀 Features
 
-**🖼️ AI-Powered Upscaling**: Increase image resolution by 4x with no hallucination
-**⚡ Browser-Native**: Runs entirely in your browser using ONNX Runtime Web
-**🎯 GPU Acceleration**: Leverages WebGPU for lightning-fast processing
-**🧩 Tile-Based Processing**: Handles large images efficiently with smart tiling
-**📱 Responsive Design**: Works seamlessly on desktop and mobile devices
-**🔒 Privacy First**: Your images never leave your device
+- **🖼️ AI-Powered Upscaling**: Increase image resolution by 4x with no hallucination
+- **⚡ Browser-Native**: Runs entirely in your browser using ONNX Runtime Web
+- **🎯 GPU Acceleration**: Leverages WebGPU for lightning-fast processing
+- **🧩 Tile-Based Processing**: Handles large images efficiently with smart tiling
+- **📱 Responsive Design**: Works seamlessly on desktop and mobile devices
+- **🔒 Privacy First**: Your images never leave your device
 
 ## 🎯 How It Works
 
