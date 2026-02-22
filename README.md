@@ -1,4 +1,4 @@
-# DistillSR Web 🎨✨
+# DistillSR Web ✨
 
 > Transform your low-resolution images into stunning, high-quality, higher dpi images directly in your browser.
 
