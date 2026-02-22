@@ -1,6 +1,6 @@
 # DistillSR Web 🎨✨
 
-> Transform your low-resolution images into stunning, high-quality, higher dpi images directly in your browser. [live demo](https://upscaler.renderlab.cc)
+> Transform your low-resolution images into stunning, high-quality, higher dpi images directly in your browser.
 
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge)](https://vuejs.org/)
 [![ONNX Runtime](https://img.shields.io/badge/ONNX-Runtime-005A9C?style=for-the-badge)](https://onnxruntime.ai/)
@@ -8,7 +8,9 @@
 [![WebGPU](https://img.shields.io/badge/WebGPU-Ready-FF6B6B?style=for-the-badge)](https://www.w3.org/TR/webgpu/)
 [![Rsbuild](https://img.shields.io/badge/Rsbuild-000000?style=for-the-badge)](https://rsbuild.rs/)
 [![CC-Licence](https://img.shields.io/badge/License-CC--BY--NC-blue?style=for-the-badge)](https://creativecommons.org/licenses/by-nc/4.0/deed.en)
-![example](./img/example.jpg)
+[![example](./img/example.jpg)](https://upscaler.renderlab.cc)
+
+[Live demo](https://upscaler.renderlab.cc)
 
 ## 🚀 Features
 
